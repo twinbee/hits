@@ -1,0 +1,10 @@
+#PBS -S /bin/bash
+#PBS -l nodes=3
+#PBS -l mem=1MB
+#PBS -N hits
+cd hits
+rm hits.o*
+rm hits.e*
+rm parallel
+/usr/local/apps/mpich-1.2.1/bin/mpiCC -o parallel parallel.cpp
+/usr/local/apps/mpich-1.2.1/bin/mpirun -np 3 parallel >> hits3.out

@@ -1,0 +1,35 @@
+#
+# Fake (ba)sh-like single-command-line loops
+# 
+#   Usage: for <var> <values> {' : ' <cmd> }+
+#
+# Commands are separated with ' : ' (note the surrounding spaces).  Shell
+# special characters that affect its notion of what constitutes a command or
+# pipeline (&, |, and ;) must be quoted or escaped with a backslash.  Also,
+# backslashing backslashed escape sequences (\n, \t, etc.) will prevent
+# their expansion during alias expansion, which is almost certainly what you
+# want, in particular with respect to newlines.
+#
+# Examples:
+#
+#   for n 1 2 3 : echo $n
+#   for s 1 2 3 : sleep $s \&
+#   for d * : test -d "$d" \&\& echo -n "$d\\t" \&\& ls -1 $d \| wc -l
+#   for f .* : if ( -f "$f" ) then : grep setenv $f >\& /dev/null \&\& echo $f : endif
+#
+#   set n=5; whl $n : @ n-- : echo $n
+#   whl 1 : cat /proc/uptime \| tr "\\n" "\\r" : sleep 1
+
+alias for \
+  "set _tmp=/tmp/.$$; " \
+  "echo 'foreach \!:1:q ( \!:2*:q : end' | " \
+  "  sed 's/ : /)¬/;s/ : /¬/g;s/\\|/|/g;s/\\&/·/g;' | " \
+  "  tr '·¬' '&\n' > "'$_tmp; ' \
+  'source $_tmp; rm $_tmp'
+
+alias whl \
+  "set _tmp=/tmp/.$$; " \
+  "echo 'while (\!:*:q : end' | " \
+  "  sed 's/ : /)¬/;s/ : /¬/g;s/\\|/|/g;s/\\&/·/g;' | " \
+  "  tr '·¬' '&\n' > "'$_tmp; ' \
+  'source $_tmp; rm $_tmp'

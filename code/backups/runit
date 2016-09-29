@@ -1,0 +1,3 @@
+rm parallel
+rm *.o
+/usr/local/appl/mpich-1.2.1/bin/mpiCC -woffall -o parallel parallel.cpp && /usr/local/appl/mpich-1.2.1/bin/mpirun -np $1 parallel

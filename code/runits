@@ -1,0 +1,1 @@
+/usr/local/appl/mpich-1.2.1/bin/mpiCC -o serial serial.cpp && /usr/local/appl/mpich-1.2.1/bin/mpirun -np 1 serial

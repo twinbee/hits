@@ -1,0 +1,22 @@
+todo HITS paper:
+
+shorten (8 pages w/o ref.)
+add motivation, techniques for parallelization
+
+add analysis
+
+remove some of the summary for HITS algorithm
+
+
+write Abstract:
+page ranking lots of pages
+topological structure
+
+motivation for parallelization:
+volume of data is great, serialized version time expensive n^2, grows with graph size
+--- utilize our machines to max effect
+
+break up the independant parts into smaller versions, run in parallel
+
+results summary
+
